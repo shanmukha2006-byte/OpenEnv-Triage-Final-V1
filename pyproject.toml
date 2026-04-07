@@ -13,8 +13,11 @@ authors = [
 ]
 dependencies = [
     "requests",
-    "numpy"
+    "numpy",
+    "gymnasium",
+    "torch"
 ]
 
-[tool.setuptools]
-packages = []
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
