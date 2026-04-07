@@ -9,7 +9,7 @@ description = "RL environment for DevOps log triage"
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
-  { name="CH Shanmukha Venkata Lakshman" },
+  { name = "CH Shanmukha Venkata Lakshman" }
 ]
 dependencies = [
     "requests",
@@ -17,8 +17,6 @@ dependencies = [
     "gymnasium",
     "torch"
 ]
+
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["*"]
-[project.scripts]
-openenv-agent = "inference:main"
