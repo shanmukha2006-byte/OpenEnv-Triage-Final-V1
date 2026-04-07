@@ -1,0 +1,20 @@
+spec_version: 1
+name: "LogTriageEnv"
+version: "1.0.0"
+description: "A real-world DevOps environment where an agent must identify critical failures in server log streams."
+tasks:
+  - id: "easy_triage"
+    name: "Easy Triage"
+    difficulty: "easy"
+    description: "Identify the single critical error in a small batch of 5 clean logs."
+  - id: "medium_triage"
+    name: "Medium Triage"
+    difficulty: "medium"
+    description: "Identify the critical error hidden among 15 logs with warnings and info noise."
+  - id: "hard_triage"
+    name: "Hard Triage"
+    difficulty: "hard"
+    description: "Identify the root cause critical error in a 30-log batch containing stack traces and cascading failures."
+entrypoint: "env:LogTriageEnvironment"
+runtime: "docker"
+port: 7860
