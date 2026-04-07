@@ -1,8 +1,17 @@
-# not meant to be edited manually.
 version = 1
-revision = 1
+requires-python = ">=3.9"
 
 [[package]]
 name = "openenv-logtriage-team-shanmukha"
 version = "0.1.0"
 source = { virtual = "." }
+dependencies = [
+    { name = "numpy" },
+    { name = "requests" },
+    { name = "openenv-core" },
+]
+
+[[package]]
+name = "openenv-core"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
