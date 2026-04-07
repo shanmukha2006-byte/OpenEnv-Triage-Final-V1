@@ -17,7 +17,8 @@ dependencies = [
     "gymnasium",
     "torch"
 ]
-
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["*"]
+[project.scripts]
+openenv-agent = "inference:main"
