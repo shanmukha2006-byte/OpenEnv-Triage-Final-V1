@@ -2,6 +2,8 @@ import os
 import json
 import re
 import sys
+import time
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from openai import OpenAI
 from env import LogTriageEnvironment, Action
 sys.stdout.reconfigure(line_buffering=True)
@@ -63,12 +65,31 @@ def run_task(difficulty):
             break
 
     print(f"[END] Final Score: {total_reward} | Task: {difficulty} completed.")
-
 if __name__ == "__main__":
     for diff in ["easy", "medium", "hard"]:
-        run_task(diff)
-        import time
-        
-print("Tasks complete. Keeping Space alive for validation...")
-while True:
-    time.sleep(3600)
+        try:
+            run_task(diff)
+        except Exception as e:
+            print(f"Error in task {diff}: {e}")
+    
+    print("Tasks complete. Starting validator server on port 7860...")
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+
+    class SimpleHandler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write(b"Space is Running")
+
+        def do_POST(self):
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            self.wfile.write(b"Reset Successful")
+    try:
+        server = HTTPServer(('0.0.0.0', 7860), SimpleHandler)
+        print("Server is live. Waiting for Scaler validator...")
+        server.serve_forever()
+    except Exception as e:
+        print(f"Server failed to start: {e}")
