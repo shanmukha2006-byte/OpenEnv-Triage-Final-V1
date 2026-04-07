@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openenv-logtriage-team-shanmukha"
+version = "0.1.0"
+description = "RL agent for DevOps log triage and error identification"
+authors = [
+    {name = "CH Shanmukha Venkata Lakshman", email = "Ch.s.venkata.lakshman@gmail.com"},
+]
+dependencies = [
+    "requests",
+    "numpy",
+]
+requires-python = ">=3.9"
+
+[tool.setuptools.packages.find]
+where = ["."]
