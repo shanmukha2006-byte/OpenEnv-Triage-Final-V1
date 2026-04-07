@@ -15,6 +15,6 @@ tasks:
     name: "Hard Triage"
     difficulty: "hard"
     description: "Identify the root cause critical error in a 30-log batch containing stack traces and cascading failures."
-entrypoint: "env:LogTriageEnvironment"
+entrypoint: "env.LogTriageEnvironment"
 runtime: "docker"
 port: 7860
