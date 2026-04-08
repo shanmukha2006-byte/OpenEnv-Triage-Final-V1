@@ -1,12 +1,43 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from inference import SimpleHandler, HTTPServer
+from fastapi import FastAPI
+import uvicorn
+import json
 
+# Import your inference logic
+# Make sure inference.py is in repo root
+from inference import run_inference
+
+app = FastAPI(
+    title="OpenEnv Log Triage Agent",
+    description="RL Agent Server for Log Triage",
+    version="1.0"
+)
+
+# Health check endpoint (very important)
+@app.get("/")
+def root():
+    return {"status": "ok"}
+
+
+# Inference endpoint
+@app.post("/infer")
+def infer(payload: dict):
+    """
+    Receives log data and returns prediction.
+    """
+    try:
+        result = run_inference(payload)
+        return {"result": result}
+
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
+
+
+# Required entry point for deployment
 def main():
-    print("Starting OpenEnv Server...")
-    server = HTTPServer(('0.0.0.0', 7860), SimpleHandler)
-    server.serve_forever()
-
-if __name__ == "__main__":
-    main()
+    uvicorn.run(
+        "server.app:app",
+        host="0.0.0.0",
+        port=7860
+    )
